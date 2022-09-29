@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import NewExpense from "./components/NewExpenses/NewExpense";
+import Expenses from "./components/Expenses/Expenses";
+import "./styles/App.css";
 
-function App() {
+const INITIAL_DATA = [
+  { title: "Car", amount: "10500", date: "2022-09-28", id: "0.21" },
+  { title: "Chair", amount: "200", date: "2022-09-28", id: "0.22" },
+  { title: "Food", amount: "30", date: "2022-09-28", id: "0.23" },
+];
+
+const App = () => {
+  const [data, setData] = useState(INITIAL_DATA);
+
+  const ExpenseDataFinalStep = (ed) => {
+    setData((prev) => [ed, ...prev]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NewExpense toApp={ExpenseDataFinalStep} />
+      <Expenses data={data} />
     </div>
   );
-}
+};
 
 export default App;
